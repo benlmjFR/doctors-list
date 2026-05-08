@@ -1,0 +1,24 @@
+{
+  "name": "doctors-app",
+  "version": "1.0.0",
+  "description": "Annuaire de médecins avec recherche, filtrage par statut et pagination.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail -n db,server,client -c cyan,yellow,green \"docker compose up\" \"npm --prefix server run dev\" \"npm --prefix client run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benlmjFR/doctors-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/benlmjFR/doctors-list/issues"
+  },
+  "homepage": "https://github.com/benlmjFR/doctors-list#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
