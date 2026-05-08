@@ -8,8 +8,13 @@ const PORT = 3001;
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
-app.get("/health", (_req, res) => {
-  res.status(200).json({ status: "ok" });
+app.get("/health", async (_req, res) => {
+  try {
+    await pool.query("SELECT 1");
+    res.status(200).json({ status: "ok" });
+  } catch {
+    res.status(503).json({ error: "Database unavailable" });
+  }
 });
 
 app.get("/doctors", async (req, res) => {
