@@ -5,11 +5,8 @@ import pool from "./db";
 const app = express();
 const PORT = 3001;
 
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://doctors-list-nu.vercel.app"],
-  }),
-);
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 
 app.get("/health", async (_req, res) => {
