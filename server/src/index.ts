@@ -5,7 +5,11 @@ import pool from "./db";
 const app = express();
 const PORT = 3001;
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://doctors-list-nu.vercel.app"],
+  }),
+);
 app.use(express.json());
 
 app.get("/health", async (_req, res) => {
@@ -49,7 +53,9 @@ app.get("/doctors", async (req, res) => {
 
   try {
     const result = await pool.query(query, params);
-    res.status(200).json({ data: result.rows, offset, limit, next: offset + limit });
+    res
+      .status(200)
+      .json({ data: result.rows, offset, limit, next: offset + limit });
   } catch {
     res.status(500).json({ error: "Database error" });
   }
@@ -58,7 +64,9 @@ app.get("/doctors", async (req, res) => {
 app.get("/doctors/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query("SELECT * FROM doctors WHERE id = $1", [id]);
+    const result = await pool.query("SELECT * FROM doctors WHERE id = $1", [
+      id,
+    ]);
     if (result.rows.length === 0) {
       res.status(404).json({ error: "Doctor not found" });
       return;
